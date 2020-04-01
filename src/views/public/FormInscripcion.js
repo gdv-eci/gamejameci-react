@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, Col, Container, Row, Navbar } from 'react-bootstrap';
 import Axios from 'axios';
+import Stomp from 'stompjs';
 
 class FormInscripcion extends Component {
 
@@ -153,10 +154,18 @@ class FormInscripcion extends Component {
       Axios
         .post("https://gamejamapi.herokuapp.com/api/v1/users", data)
       .then(res => {
-        window.location.href = "/thanks";
+        var client = Stomp.client("wss://gamejamapi.herokuapp.com/ws-message");
+        client.reconnect_delay = 10000;
+        client.connect({}, () => { 
+          client.send("/app/message", { priority: 9 }, "Update");
+          window.location.href = "/thanks";
+        }, err => { 
+          console.log(err);
+        });
       })
       .catch(err => {
         console.log(err);
+        alert("A ocurrido un error");
       })
     }
     
@@ -175,7 +184,7 @@ class FormInscripcion extends Component {
               height="30"
               className="d-inline-block align-top"
             />{' '}
-            Resumen
+            Inscripcion
           </Navbar.Brand>
         </Navbar>
         

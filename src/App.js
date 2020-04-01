@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FormInscripcion from './Stomp/FormInscripcion';
 import { Route, Switch, Router, Redirect, useLocation } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import AdminView from './Stomp/AdminView';
+import AdminView from './views/admin/AdminView';
 import Main from './Stomp/Main';
-import Thanks from './Stomp/Thanks';
+import FormInscripcion from './views/public/FormInscripcion';
+import Thanks from './views/public/Thanks';
 
 const history = createBrowserHistory();
 
