@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Form, Col, Container, Row, Navbar } from 'react-bootstrap';
+import Axios from 'axios';
 
 class FormInscripcion extends Component {
 
@@ -23,6 +24,30 @@ class FormInscripcion extends Component {
     }
   }
 
+  /**
+   * cedula: 8
+   * ti: 10
+   */
+  //expresiones regulares
+  textRegEx = "^[a-zA-Z ñÑáéíóúÁÉÍÓÚ]{4,}";
+  code = "^[0-9]{3,}";
+  cellPhoneRegEx = "^[0-9]{5,}";
+  mailRegEx = "^[a-zA-Z0-9_]+([.-]?[a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.-]?[a-zA-Z0-9_]+)*(.[a-zA-Z0-9_]{2,4})+";
+
+  documentRegEx = () => {
+    if (this.state.tp === "TI")
+      return "^[0-9]{10,}";
+    else if (this.state.tp === "CC")
+      return "^[0-9]{8,}";
+    else if (this.state.tp === "CE")
+      return "^[a-zA-Z0-9]{12,}";
+    else if (this.state.tp === "PA")
+      return "^[a-zA-Z0-9]{12,}";
+    else
+      return "";
+  }
+
+  // Functions
   handleName = event => {
     this.setState({
       name: event.target.value
@@ -79,13 +104,13 @@ class FormInscripcion extends Component {
 
   handleWA = event => {
     this.setState({
-      wa: event.target.value
+      wa: !this.state.wa
     });
   }
 
   handleVeg = event => {
     this.setState({
-      veg: event.target.value
+      veg: !this.state.veg
     });
   }
 
@@ -102,13 +127,15 @@ class FormInscripcion extends Component {
   }
 
   handleClick = event => {
+    event.preventDefault();
+    event.stopPropagation();
+
     const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+
+    if (form.checkValidity() === true) {
       let data = {
         name: this.state.name,
-        lastname: this.state.lastName,
+        lastName: this.state.lastName,
         email: this.state.email,
         tp: this.state.tp,
         numDoc: this.state.numDoc,
@@ -122,8 +149,17 @@ class FormInscripcion extends Component {
         level: this.state.level
       }
       console.log(data);
+  
+      Axios
+        .post("https://gamejamapi.herokuapp.com/api/v1/users", data)
+      .then(res => {
+        window.location.href = "/thanks";
+      })
+      .catch(err => {
+        console.log(err);
+      })
     }
-
+    
     this.setState({validated: true});
   }
 
@@ -150,19 +186,19 @@ class FormInscripcion extends Component {
                 <Form.Row>
                   <Form.Group as={Col} sm={12} md={6} controlId="Name">
                     <Form.Label>Nombres Completos</Form.Label>
-                    <Form.Control onChange={this.handleName} required placeholder="Ej. Alex" />
+                    <Form.Control onChange={this.handleName} required pattern={this.textRegEx} placeholder="Ej. Alex" />
                   </Form.Group>
 
                   <Form.Group as={Col} sm={12} md={6} controlId="LastName">
                     <Form.Label>Apellidos Completos</Form.Label>
-                    <Form.Control onChange={this.handleLastName} required placeholder="EJ. Anderson" />
+                    <Form.Control onChange={this.handleLastName} required pattern={this.textRegEx} placeholder="EJ. Anderson" />
                   </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
                   <Form.Group as={Col} controlId="Email">
                     <Form.Label>Correo Electrónico</Form.Label>
-                    <Form.Control onChange={this.handleEmail} required type="email" placeholder="Enter email" />
+                    <Form.Control onChange={this.handleEmail} required pattern={this.mailRegEx} type="email" placeholder="Enter email" />
                   </Form.Group>
                 </Form.Row>
 
@@ -180,7 +216,7 @@ class FormInscripcion extends Component {
 
                   <Form.Group as={Col} sm={12} md={6} controlId="NumDocument">
                     <Form.Label>Número de Documento de identidad</Form.Label>
-                    <Form.Control onChange={this.handleNumDocument} required placeholder="Ej. 123..." />
+                    <Form.Control onChange={this.handleNumDocument} required pattern={this.documentRegEx()} placeholder="Ej. 123..." />
                   </Form.Group>
                 </Form.Row>
 
@@ -199,19 +235,19 @@ class FormInscripcion extends Component {
 
                   <Form.Group as={Col} sm={12} md={6} controlId="UniEst">
                     <Form.Label>Universidad donde estudia o estudió</Form.Label>
-                    <Form.Control onChange={this.handleUniEst} required placeholder="Ej. Escuela Colombiana de Ingeniería Julio Garavito" />
+                    <Form.Control onChange={this.handleUniEst} required pattern={this.textRegEx} placeholder="Ej. Escuela Colombiana de Ingeniería Julio Garavito" />
                   </Form.Group>
                 </Form.Row>
 
                 <Form.Row>
                   <Form.Group as={Col} sm={12} md={6} controlId="Codigo">
                     <Form.Label>Código</Form.Label>
-                    <Form.Control onChange={this.handleCode} required placeholder="Carnet o Codigo Estudiantil" />
+                    <Form.Control onChange={this.handleCode} required type="number" pattern={this.code}  placeholder="Carnet o Codigo Estudiantil" />
                   </Form.Group>
 
                   <Form.Group as={Col} sm={12} md={6} controlId="Celular">
                     <Form.Label>Celular</Form.Label>
-                    <Form.Control onChange={this.handleCel} required placeholder="Ej. (+57) 310..." />
+                    <Form.Control onChange={this.handleCel} required type="number" pattern={this.cellPhoneRegEx} placeholder="Ej. 310..." />
                   </Form.Group>
                 </Form.Row>
 
@@ -230,9 +266,9 @@ class FormInscripcion extends Component {
                     <Form.Label>¿Qué rol desempeñará?</Form.Label>
                     <Form.Control onChange={this.handleRol} required as="select" custom>
                       <option aria-label="None" value="" />
-                      <option value={"Dev"}>Desarrollador</option>
-                      <option value={"Bosque"}>Artista</option>
-                      <option value={"UniMinuto"}>Músico</option>
+                      <option value={"Programador"}>Programador</option>
+                      <option value={"Artista"}>Artista</option>
+                      <option value={"Músico"}>Músico</option>
                     </Form.Control>
                   </Form.Group>
 

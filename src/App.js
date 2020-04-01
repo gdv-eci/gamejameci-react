@@ -6,6 +6,7 @@ import { Route, Switch, Router, Redirect, useLocation } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import AdminView from './Stomp/AdminView';
 import Main from './Stomp/Main';
+import Thanks from './Stomp/Thanks';
 
 const history = createBrowserHistory();
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/inscription" component={FormInscripcion} />
           <Route path="/main" component={Main} />
           <Route path="/admin" component={AdminView} />
+          <Route path="/thanks" component={Thanks} />
           <Route path="*" component={NoMatch} />
         </Switch>
       </div>
