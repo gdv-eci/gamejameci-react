@@ -22,9 +22,9 @@ class Thanks extends Component {
           <Row>
             <Col>
               <Image 
-                width={150}
-                height={200} 
-                src="./logoGameJam.jpeg" 
+                width={300}
+                height={422} 
+                src="./Game-Jam1.jpg" 
                 rounded 
               />
             </Col>
@@ -32,17 +32,17 @@ class Thanks extends Component {
           <Row>
             <Col>
               <br></br>
-              Gracias por inscribirse al Game Jam de Universidades, Te esperamos.
+              Gracias por inscribirse al Game Jam Universitario, Te esperamos.
               <br></br>
-              <strong>Lugar:</strong> Escuela Colombiana de Ingeniería Julio Garavito
+              <strong>Lugar:</strong> Virtual.
               <br></br>
-              <strong>Fecha:</strong> Por definir.
+              <strong>Fecha:</strong> 14 de noviembre al 16 de noviembre del 2020.
             </Col>
           </Row>
           <Row >
             <Col>
               <hr></hr>
-              <h1>Sponsors</h1>
+              <h1>Patrocinadores</h1>
               <br></br>
               <Row>
                 <Col>
@@ -62,6 +62,19 @@ class Thanks extends Component {
                   <Figure>
                     <Figure.Image
                       width={170}
+                      height={180}
+                      alt="171x180"
+                      src="https://www.unab.edu.co/sites/default/files/1-LOGO-WEB_0.png"
+                    />
+                    <Figure.Caption>
+                      Universidad Autónoma de Bucaramanga.
+                    </Figure.Caption>
+                  </Figure>
+                </Col>
+                <Col>
+                  <Figure>
+                    <Figure.Image
+                      width={180}
                       height={180}
                       alt="171x180"
                       src="https://www.unbosque.edu.co/sites/default/files/logo.png"
@@ -107,7 +120,7 @@ class Thanks extends Component {
                       src="http://www.uniminuto.edu/image/layout_set_logo?img_id=835779&amp;t=1585663840499"
                     />
                     <Figure.Caption>
-                      Universidad de Bogotá Jorge Tadeo Lozano.
+                      Corporación Universitaria Minuto de Dios.
                     </Figure.Caption>
                   </Figure>
                 </Col>

@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Switch, Router, Redirect, useLocation } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import AdminView from './views/admin/AdminView';
-import Main from './Stomp/Main';
+import Main from './views/public/Main';
 import FormInscripcion from './views/public/FormInscripcion';
 import Thanks from './views/public/Thanks';
 
@@ -16,7 +16,7 @@ function App() {
       <div className="App">
         <Switch>
           <Route exact path="/">
-            <Redirect to="/inscription" />
+            <Redirect to="/main" />
           </Route>
           <Route path="/inscription" component={FormInscripcion} />
           <Route path="/main" component={Main} />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Stomp from 'stompjs';
 import ChildComponent from './ChildComponent';
 
-class Main extends Component {
+class MainStomp extends Component {
 
   static propTypes = {
     client: Stomp

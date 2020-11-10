@@ -238,6 +238,7 @@ class FormInscripcion extends Component {
                       <option value={"Bosque"}>Universidad El Bosque</option>
                       <option value={"UniMinuto"}>Corporación Universitaria Minuto de Dios</option>
                       <option value={"Konrad"}>Fundación Universitaria Konrad Lorenz</option>
+                      <option value={"Unab"}>Universidad Autónoma de Bucaramanga</option>
                       <option value={"Tadeo"}>Universidad de Bogotá Jorge Tadeo Lozano</option>
                     </Form.Control>
                   </Form.Group>
@@ -265,7 +266,7 @@ class FormInscripcion extends Component {
                     <Form.Check onChange={this.handleWA} type="checkbox" label="¿Usa WhatsApp como medio de comunicación con su número de celular?" />
                   </Form.Group>
 
-                  <Form.Group as={Col} sm={12} md={6} id="CheckboxVeg">
+                  <Form.Group style={{display:"none"}} as={Col} sm={12} md={6} id="CheckboxVeg">
                     <Form.Check onChange={this.handleVeg} type="checkbox" label="¿Es vegetariano o vegano?" />
                   </Form.Group>
                 </Form.Row>
